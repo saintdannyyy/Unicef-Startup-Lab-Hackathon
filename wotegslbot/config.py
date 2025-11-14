@@ -28,6 +28,7 @@ for category_dir in CATEGORIES.values():
 MAX_SUGGESTIONS = 5
 MAX_SEARCH_RESULTS = 5
 SUPPORTED_VIDEO_FORMATS = ['.mp4', '.mov', '.avi']
+SUPPORTED_IMAGE_FORMATS = ['.png', '.jpg', '.jpeg', '.gif']
 ADMIN_USER_ID = None  # Set to your Telegram user ID for admin features
 
 # Messages
