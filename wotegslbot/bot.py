@@ -1,10 +1,12 @@
 """
 Ghanaian Sign Language (GSL) Telegram Bot
-A dictionary bot for learning GSL signs
+A dictionary bot for learning GSL signs + Competitive Multiplayer Games
 """
 import logging
 from pathlib import Path
 from typing import Dict, List, Optional
+import random
+import time
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import (
     Application,
@@ -12,11 +14,13 @@ from telegram.ext import (
     MessageHandler,
     CallbackQueryHandler,
     ContextTypes,
+    ConversationHandler,
     filters
 )
 
 from config import BOT_TOKEN, ADMIN_USER_ID, MAX_SUGGESTIONS
 from database import db
+from game_database import game_db
 
 # Enable logging
 logging.basicConfig(
@@ -178,7 +182,12 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
         else:
             await update.message.reply_text(
                 f"❌ Sorry, I couldn't find any sign for **'{query}'**.\n\n"
-                f"Try /browse to see available signs.",
+                f"📚 **Help us build an inclusive GSL dictionary!**\n"
+                f"This is a community-driven project - for the inclusive, by the inclusive.\n\n"
+                f"🎥 **Contribute your signs:**\n"
+                f"Visit our data collection app to record and submit GSL signs:\n"
+                f"https://unchancy-deadpan-codi.ngrok-free.dev\n\n"
+                f"💡 Or try /browse to see available signs.",
                 parse_mode='Markdown'
             )
 
