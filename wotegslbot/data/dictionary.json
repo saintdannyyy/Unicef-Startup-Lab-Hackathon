@@ -1,0 +1,162 @@
+{
+  "alphabets": {
+    "A": {
+      "path": "C:\\Users\\HP\\Documents\\Hackathon\\Unicef Startup Lab\\codeworks\\wotegslbot\\data\\videos\\alphabets\\A.mp4",
+      "filename": "A.mp4",
+      "description": "Sign for A",
+      "category": "alphabets"
+    },
+    "B": {
+      "path": "C:\\Users\\HP\\Documents\\Hackathon\\Unicef Startup Lab\\codeworks\\wotegslbot\\data\\videos\\alphabets\\B.mp4",
+      "filename": "B.mp4",
+      "description": "Sign for B",
+      "category": "alphabets"
+    },
+    "C": {
+      "path": "C:\\Users\\HP\\Documents\\Hackathon\\Unicef Startup Lab\\codeworks\\wotegslbot\\data\\videos\\alphabets\\C.mp4",
+      "filename": "C.mp4",
+      "description": "Sign for C",
+      "category": "alphabets"
+    },
+    "D": {
+      "path": "C:\\Users\\HP\\Documents\\Hackathon\\Unicef Startup Lab\\codeworks\\wotegslbot\\data\\videos\\alphabets\\D.mp4",
+      "filename": "D.mp4",
+      "description": "Sign for D",
+      "category": "alphabets"
+    },
+    "E": {
+      "path": "C:\\Users\\HP\\Documents\\Hackathon\\Unicef Startup Lab\\codeworks\\wotegslbot\\data\\videos\\alphabets\\E.mp4",
+      "filename": "E.mp4",
+      "description": "Sign for E",
+      "category": "alphabets"
+    },
+    "F": {
+      "path": "C:\\Users\\HP\\Documents\\Hackathon\\Unicef Startup Lab\\codeworks\\wotegslbot\\data\\videos\\alphabets\\F.mp4",
+      "filename": "F.mp4",
+      "description": "Sign for F",
+      "category": "alphabets"
+    },
+    "G": {
+      "path": "C:\\Users\\HP\\Documents\\Hackathon\\Unicef Startup Lab\\codeworks\\wotegslbot\\data\\videos\\alphabets\\G.mp4",
+      "filename": "G.mp4",
+      "description": "Sign for G",
+      "category": "alphabets"
+    },
+    "H": {
+      "path": "C:\\Users\\HP\\Documents\\Hackathon\\Unicef Startup Lab\\codeworks\\wotegslbot\\data\\videos\\alphabets\\H.mp4",
+      "filename": "H.mp4",
+      "description": "Sign for H",
+      "category": "alphabets"
+    },
+    "I": {
+      "path": "C:\\Users\\HP\\Documents\\Hackathon\\Unicef Startup Lab\\codeworks\\wotegslbot\\data\\videos\\alphabets\\I.mp4",
+      "filename": "I.mp4",
+      "description": "Sign for I",
+      "category": "alphabets"
+    },
+    "J": {
+      "path": "C:\\Users\\HP\\Documents\\Hackathon\\Unicef Startup Lab\\codeworks\\wotegslbot\\data\\videos\\alphabets\\J.mp4",
+      "filename": "J.mp4",
+      "description": "Sign for J",
+      "category": "alphabets"
+    },
+    "K": {
+      "path": "C:\\Users\\HP\\Documents\\Hackathon\\Unicef Startup Lab\\codeworks\\wotegslbot\\data\\videos\\alphabets\\K.mp4",
+      "filename": "K.mp4",
+      "description": "Sign for K",
+      "category": "alphabets"
+    },
+    "L": {
+      "path": "C:\\Users\\HP\\Documents\\Hackathon\\Unicef Startup Lab\\codeworks\\wotegslbot\\data\\videos\\alphabets\\L.mp4",
+      "filename": "L.mp4",
+      "description": "Sign for L",
+      "category": "alphabets"
+    },
+    "M": {
+      "path": "C:\\Users\\HP\\Documents\\Hackathon\\Unicef Startup Lab\\codeworks\\wotegslbot\\data\\videos\\alphabets\\M.mp4",
+      "filename": "M.mp4",
+      "description": "Sign for M",
+      "category": "alphabets"
+    },
+    "N": {
+      "path": "C:\\Users\\HP\\Documents\\Hackathon\\Unicef Startup Lab\\codeworks\\wotegslbot\\data\\videos\\alphabets\\N.mp4",
+      "filename": "N.mp4",
+      "description": "Sign for N",
+      "category": "alphabets"
+    },
+    "O": {
+      "path": "C:\\Users\\HP\\Documents\\Hackathon\\Unicef Startup Lab\\codeworks\\wotegslbot\\data\\videos\\alphabets\\O.mp4",
+      "filename": "O.mp4",
+      "description": "Sign for O",
+      "category": "alphabets"
+    },
+    "P": {
+      "path": "C:\\Users\\HP\\Documents\\Hackathon\\Unicef Startup Lab\\codeworks\\wotegslbot\\data\\videos\\alphabets\\P.mp4",
+      "filename": "P.mp4",
+      "description": "Sign for P",
+      "category": "alphabets"
+    },
+    "Q": {
+      "path": "C:\\Users\\HP\\Documents\\Hackathon\\Unicef Startup Lab\\codeworks\\wotegslbot\\data\\videos\\alphabets\\Q.mp4",
+      "filename": "Q.mp4",
+      "description": "Sign for Q",
+      "category": "alphabets"
+    },
+    "R": {
+      "path": "C:\\Users\\HP\\Documents\\Hackathon\\Unicef Startup Lab\\codeworks\\wotegslbot\\data\\videos\\alphabets\\R.mp4",
+      "filename": "R.mp4",
+      "description": "Sign for R",
+      "category": "alphabets"
+    },
+    "S": {
+      "path": "C:\\Users\\HP\\Documents\\Hackathon\\Unicef Startup Lab\\codeworks\\wotegslbot\\data\\videos\\alphabets\\S.mp4",
+      "filename": "S.mp4",
+      "description": "Sign for S",
+      "category": "alphabets"
+    },
+    "T": {
+      "path": "C:\\Users\\HP\\Documents\\Hackathon\\Unicef Startup Lab\\codeworks\\wotegslbot\\data\\videos\\alphabets\\T.mp4",
+      "filename": "T.mp4",
+      "description": "Sign for T",
+      "category": "alphabets"
+    },
+    "U": {
+      "path": "C:\\Users\\HP\\Documents\\Hackathon\\Unicef Startup Lab\\codeworks\\wotegslbot\\data\\videos\\alphabets\\U.mp4",
+      "filename": "U.mp4",
+      "description": "Sign for U",
+      "category": "alphabets"
+    },
+    "V": {
+      "path": "C:\\Users\\HP\\Documents\\Hackathon\\Unicef Startup Lab\\codeworks\\wotegslbot\\data\\videos\\alphabets\\V.mp4",
+      "filename": "V.mp4",
+      "description": "Sign for V",
+      "category": "alphabets"
+    },
+    "W": {
+      "path": "C:\\Users\\HP\\Documents\\Hackathon\\Unicef Startup Lab\\codeworks\\wotegslbot\\data\\videos\\alphabets\\W.mp4",
+      "filename": "W.mp4",
+      "description": "Sign for W",
+      "category": "alphabets"
+    },
+    "X": {
+      "path": "C:\\Users\\HP\\Documents\\Hackathon\\Unicef Startup Lab\\codeworks\\wotegslbot\\data\\videos\\alphabets\\X.mp4",
+      "filename": "X.mp4",
+      "description": "Sign for X",
+      "category": "alphabets"
+    },
+    "Y": {
+      "path": "C:\\Users\\HP\\Documents\\Hackathon\\Unicef Startup Lab\\codeworks\\wotegslbot\\data\\videos\\alphabets\\Y.mp4",
+      "filename": "Y.mp4",
+      "description": "Sign for Y",
+      "category": "alphabets"
+    },
+    "Z": {
+      "path": "C:\\Users\\HP\\Documents\\Hackathon\\Unicef Startup Lab\\codeworks\\wotegslbot\\data\\videos\\alphabets\\Z.mp4",
+      "filename": "Z.mp4",
+      "description": "Sign for Z",
+      "category": "alphabets"
+    }
+  },
+  "numbers": {},
+  "words": {}
+}
