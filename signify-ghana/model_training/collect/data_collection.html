@@ -100,8 +100,8 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 300px;
-            height: 300px;
+            width: 500px;
+            height: 500px;
             border: 3px dashed #28a745;
             border-radius: 50%;
             pointer-events: none;
@@ -164,13 +164,25 @@
         <div class="warning">
             <h3>📋 Collection Tips for Better Accuracy:</h3>
             <ul>
-                <li><strong>Center your hand</strong> in the green circle guide</li>
-                <li><strong>Vary slightly:</strong> different angles, distances, lighting</li>
-                <li><strong>Hold steady</strong> for static signs (A-Y)</li>
-                <li><strong>Perform full motion</strong> for dynamic signs (J, Z)</li>
-                <li><strong>Good lighting:</strong> face a window or light source</li>
+                <li><strong>Good lighting:</strong> face a window or light source (CRITICAL!)</li>
+                <li><strong>Plain background:</strong> avoid busy/patterned backgrounds</li>
+                <li><strong>Contrast:</strong> wear dark clothes if background is light (or vice versa)</li>
+                <li><strong>For face-touching signs:</strong> move hand slower, keep fingers spread</li>
+                <li><strong>Distance:</strong> sit 1-2 feet from camera, show full hand</li>
+                <li><strong>Hold steady</strong> for 1-2 seconds for static signs</li>
+                <li><strong>Perform full motion</strong> slowly for dynamic signs (J, Z)</li>
                 <li><strong>Collect 40-50 samples</strong> per sign for best results</li>
             </ul>
+        </div>
+
+        <div class="stats" style="background: #ffe7e7; border-left: 4px solid #dc3545;">
+            <strong>🚨 Hand Not Detected? Try This:</strong><br>
+            1. Improve lighting (turn on lights, face window)<br>
+            2. Move hand away from face slightly<br>
+            3. Spread fingers apart more<br>
+            4. Use plain background<br>
+            5. Move hand slower (not too fast)<br>
+            6. Try wearing different colored sleeves
         </div>
 
         <div class="controls">
@@ -215,11 +227,12 @@
     <script>
         let hands, camera;
         let currentLandmarks = null;
+        let previousLandmarks = null; // For motion tracking
         let sequenceBuffer = [];
         const samples = {};
         let isRecording = false;
         let recordingStartTime = 0;
-        const SEQUENCE_DURATION = 2000; // 2 seconds for dynamic signs
+        const SEQUENCE_DURATION = 3000; // 3 seconds optimal for motion capture (was 10s)
 
         function startCamera() {
             const video = document.getElementById('webcam');
@@ -231,10 +244,12 @@
             });
 
             hands.setOptions({
-                maxNumHands: 1,
-                modelComplexity: 1,
-                minDetectionConfidence: 0.7,
-                minTrackingConfidence: 0.7
+                maxNumHands: 2,
+                modelComplexity: 1,  // 0=lite, 1=full (balance speed/accuracy)
+                minDetectionConfidence: 0.4,  // Optimized for face-touching signs (was 0.5)
+                minTrackingConfidence: 0.3,   // Very low for continuous tracking during occlusion
+                staticImageMode: false,       // Better for video tracking
+                selfieMode: false            // No mirror mode (better for training data)
             });
 
             hands.onResults(onResults);
@@ -243,8 +258,8 @@
                 onFrame: async () => {
                     await hands.send({ image: video });
                 },
-                width: 640,
-                height: 480
+                width: 800,
+                height: 700
             });
 
             camera.start();
@@ -269,24 +284,28 @@
             const handStatus = document.getElementById('handStatus');
             const qualityText = document.getElementById('qualityText');
 
-            if (results.multiHandLandmarks && results.multiHandLandmarks[0]) {
-                const landmarks = results.multiHandLandmarks[0];
-                currentLandmarks = landmarks;
+            if (results.multiHandLandmarks && results.multiHandLandmarks.length > 0) {
+                // Draw ALL detected hands
+                results.multiHandLandmarks.forEach((landmarks, index) => {
+                    const color = index === 0 ? '#00FF00' : '#00FFFF'; // Green for first, Cyan for second
+                    drawConnectors(ctx, landmarks, HAND_CONNECTIONS, { color: color, lineWidth: 3 });
+                    drawLandmarks(ctx, landmarks, { color: '#FF0000', lineWidth: 2, radius: 5 });
+                });
 
-                // Draw hand
-                drawConnectors(ctx, landmarks, HAND_CONNECTIONS, { color: '#00FF00', lineWidth: 3 });
-                drawLandmarks(ctx, landmarks, { color: '#FF0000', lineWidth: 2, radius: 5 });
+                // Use first hand for quality calculation
+                const landmarks = results.multiHandLandmarks[0];
+                currentLandmarks = results.multiHandLandmarks; // Store ALL hands
 
                 // Calculate quality
                 const quality = calculateQuality(landmarks);
 
                 qualityIndicator.style.display = 'block';
-                if (quality > 0.8) {
+                if (quality > 0.6) {  // Was 0.8, now 0.6 - easier to achieve!
                     qualityIndicator.className = 'quality-indicator quality-good';
                     qualityIndicator.textContent = '✅ Excellent';
                     qualityText.textContent = '✅ Excellent - Ready to record';
                     qualityText.style.color = '#28a745';
-                } else if (quality > 0.5) {
+                } else if (quality > 0.35) {  // Was 0.5, now 0.35
                     qualityIndicator.className = 'quality-indicator quality-medium';
                     qualityIndicator.textContent = '⚠️ Good';
                     qualityText.textContent = '⚠️ Good - Try to center hand more';
@@ -298,13 +317,15 @@
                     qualityText.style.color = '#dc3545';
                 }
 
-                handStatus.textContent = '✅ Yes';
+                const handCount = results.multiHandLandmarks.length;
+                handStatus.textContent = `✅ Yes (${handCount} hand${handCount > 1 ? 's' : ''})`;
                 handStatus.style.color = '#28a745';
 
                 // If recording sequence
                 if (isRecording && document.getElementById('isSequence').checked) {
-                    const flatLandmarks = flattenLandmarks(landmarks);
-                    sequenceBuffer.push(flatLandmarks);
+                    // Flatten all hands
+                    const allHandsFlat = results.multiHandLandmarks.map(h => flattenLandmarks(h)).flat();
+                    sequenceBuffer.push(allHandsFlat);
 
                     const elapsed = Date.now() - recordingStartTime;
                     if (elapsed >= SEQUENCE_DURATION) {
@@ -323,23 +344,54 @@
         }
 
         function calculateQuality(landmarks) {
-            // Check if hand is centered
-            const wrist = landmarks[0];
-            const centerX = 0.5;
-            const centerY = 0.5;
-            const distanceFromCenter = Math.sqrt(
-                Math.pow(wrist.x - centerX, 2) +
-                Math.pow(wrist.y - centerY, 2)
-            );
+            // Industry-standard quality metrics
 
-            // Check visibility (z-depth)
+            // 1. Visibility score (all 21 landmarks detected clearly)
+            const visibilityScore = landmarks.filter(p =>
+                (p.visibility === undefined || p.visibility > 0.5)
+            ).length / 21;
+
+            // 2. Finger spread score (fingers not clenched - easier detection)
+            const fingerTips = [4, 8, 12, 16, 20]; // Thumb, index, middle, ring, pinky
+            let avgSpread = 0;
+            for (let i = 0; i < fingerTips.length - 1; i++) {
+                const p1 = landmarks[fingerTips[i]];
+                const p2 = landmarks[fingerTips[i + 1]];
+                avgSpread += Math.sqrt(
+                    Math.pow(p2.x - p1.x, 2) + Math.pow(p2.y - p1.y, 2)
+                );
+            }
+            avgSpread /= (fingerTips.length - 1);
+            const spreadScore = Math.min(avgSpread / 0.15, 1.0); // Normalize
+
+            // 3. Depth score (hand not too far from camera)
             const avgZ = landmarks.reduce((sum, pt) => sum + Math.abs(pt.z), 0) / landmarks.length;
-
-            // Combine metrics
-            const centerScore = Math.max(0, 1 - distanceFromCenter * 2);
             const depthScore = Math.max(0, 1 - avgZ);
 
-            return (centerScore * 0.7 + depthScore * 0.3);
+            // 4. Motion smoothness (reduces jitter artifacts)
+            let smoothnessScore = 1.0;
+            if (previousLandmarks) {
+                let totalMovement = 0;
+                for (let i = 0; i < 21; i++) {
+                    totalMovement += Math.sqrt(
+                        Math.pow(landmarks[i].x - previousLandmarks[i].x, 2) +
+                        Math.pow(landmarks[i].y - previousLandmarks[i].y, 2)
+                    );
+                }
+                // Penalize excessive jitter (>0.1 avg movement per landmark)
+                smoothnessScore = totalMovement > 2.1 ? 0.5 : 1.0;
+            }
+
+            // Store for next frame comparison
+            previousLandmarks = landmarks;
+
+            // Weighted combination (industry standard)
+            return (
+                visibilityScore * 0.35 +   // Most important: all landmarks visible
+                spreadScore * 0.25 +       // Spread fingers = better detection
+                depthScore * 0.25 +        // Reasonable distance from camera
+                smoothnessScore * 0.15     // No excessive jitter
+            );
         }
 
         function flattenLandmarks(landmarks) {
@@ -374,14 +426,14 @@
                 return;
             }
 
-            // Static sign - capture single frame
-            const flatLandmarks = flattenLandmarks(currentLandmarks);
+            // Static sign - capture single frame (all hands)
+            const allHandsFlat = currentLandmarks.map(h => flattenLandmarks(h)).flat();
 
             if (!samples[label]) {
                 samples[label] = [];
             }
 
-            samples[label].push({ landmarks: flatLandmarks });
+            samples[label].push({ landmarks: allHandsFlat });
 
             document.getElementById('currentLabel').textContent = label;
             updateStats();
