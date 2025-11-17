@@ -1,0 +1,75 @@
+./venv/
+
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+venv/
+.venv/
+ENV/
+env/
+env.bak/
+
+# Environment / secret files
+.env
+.env.local
+.env.*.local
+*.secret
+config_local.py
+# If you store secrets in a separate config, ignore it:
+# config.*.secret.py
+
+# Editor / IDE
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs and runtime
+*.log
+logs/
+*.pid
+*.seed
+
+# Test / coverage
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+
+# Build / distribution
+build/
+dist/
+*.egg-info/
+*.egg
+.eggs/
+pip-wheel-metadata/
+
+# Local package cache
+__pypackages__/
+
+# Databases / runtime stores
+*.sqlite3
+*.db
+*.offset
+
+# C extensions / compiled native files
+*.so
+
+# Large media / demo files (uncomment if you do NOT want media tracked)
+# data/videos/
+# demo/*.mp4
+# demo/*.mov
+# demo/thumbnail_*.png
+
+# Telegram / runtime artifacts
+*.update
+*.session
+
+# End
